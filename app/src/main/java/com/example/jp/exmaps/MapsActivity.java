@@ -7,12 +7,28 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    static final LatLng MANAUS = new LatLng(-3.1064, -60.0264);
+    static final LatLng TOKYO= new LatLng(35.6894, 139.6917);
+
+    private void setUpMap() {
+        Marker manaus = mMap.addMarker(new MarkerOptions().position(MANAUS).title("Manaus"));
+        Marker tokyo = mMap.addMarker(new MarkerOptions()
+            .position(TOKYO)
+            .title("Tokyo")
+            .snippet("Tokyo is far")
+            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher))
+        );
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(MANAUS, 15));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,5 +58,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        this.setUpMap();
     }
 }
